@@ -1,0 +1,45 @@
+<!--<p>
+  confirmation-code works!
+</p>-->
+<div class="rectangle header-main-container ">
+
+  <div class="text-header-container ">
+    <div class="header-icontext-container">
+      <img class="img-title" src="../../../assets/images/user.png" />
+      <img class="img-title" src="../../../assets/images/security-on.png" />
+      <img class="img-title" src="../../../assets/images/trophy.png" />
+    </div>
+    <h2 class="rectangle-heading">Enter Confirmation code</h2>
+  </div>
+</div>
+
+<form name="form" #fconfirm="ngForm" (ngSubmit)="onSubmit(fconfirm);" novalidate id="ForgtPasWrd">
+  <div class="auth-wrapper auth-wrapper-update">
+    <div class="auth-content ">
+      <!--<div class="card col-md-6 m-0-auto">-->
+      <div class="card ">
+        <div class="card-body text-left">
+          <div class="row mb-4 page-header-text Text col-md-12">Confirmation code</div>
+          <label class="frgotpasslabl textspace col-md-12">We just sent a confirmation code to your email address </label>
+          <div class="col-md-6 my-1">
+            <div class="form-group">
+              <label class="font-weight-bold required-form-field">Confirmation code</label>
+              <input type="text" class="form-control form-textbox-border font-size-14" placeholder="Enter code here." maxlength="4" required name="Code" #Code="ngModel" [(ngModel)]="model.Code" autocomplete="off" pattern="[0-9]+" />
+              <div *ngIf="Code.invalid && (Code.touched || Code.submitted)" class="invalid-error">
+                <div *ngIf="Code.errors && Code.errors.required">Confirmation code is required.</div>
+                <div *ngIf="Code.errors && Code.errors.pattern">Alphabets are not allowed.</div>
+              </div>
+                </div>
+            <div class="input-group mt-2 mb-4">
+              <div class="error m-0">{{confirmuser}}</div>
+            </div>
+            <div class="btn_control">
+              <button type="submit" class="btn btn-primary mb-3 router-link btn mb-4" [disabled]="(Code.invalid)" placement="top">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
