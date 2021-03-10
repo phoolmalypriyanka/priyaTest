@@ -1,0 +1,36 @@
+ 
+ ngOnInit() {
+
+//to add default DDL value
+
+ this.model.AnswerLimit = null;
+
+}
+
+
+//function is used for add/remove new more fields dynamically
+
+AddNewQuestions() {
+    var max_fields_limit = 10;
+    var min_limit = 0;
+    
+    var html = '', a = '20 sec', b = '30 sec', c = '10 sec';
+     
+      html += '<div class=" input-group question_index_1 mt-2">';
+
+    html += '<div class="col-md-9 "><div class="form-group"><textarea  class="form-control form-control-user font-13 resize-none WelcomeMessage" id="WelcomeMessage" placeholder="Enter your question" name = "WelcomeMessage" > </textarea></div></div>'
+
+      html += '<div class="col-md-2"><div class="form-group"><select name="AnswerLimit" id="AnswerLimit" class="font-13 form-control AnswerLimit text-blue"><option class="text-blue font-weight-bold" value="">Answer limit </option><option class="text-blue font-weight-bold" value =" ' + a + ' "> ' + a + ' </option><option class="text-blue font-weight-bold"  value="' + b + '">' + b + '</option><option class="text-blue font-weight-bold"  value="' + c + '">' + c + '</option></select></div></div>';
+
+
+      html += '<div class=" col-md-1"><button type="button" name="remove" class="remove btn btn-lg"><i class=" fas fa-trash" style="color: #e74a3b;border:none"></i></button></div></div>';
+      
+     
+        $('#item_table').append(html);
+     
+    
+   $(document).on('click', '.remove', function () {
+     $(this).parent().parent().remove();
+      });
+    
+  }

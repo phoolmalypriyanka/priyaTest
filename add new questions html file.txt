@@ -1,0 +1,41 @@
+
+//this button is for temporary used//
+
+<div class="mt-4 ml-2">
+  <button type="button" name="add" class="btn btn-primary  add mt-3" (click)="AddNewQuestions()">Add</button>
+</div>
+
+
+
+
+
+<div id="item_table">
+  <div class="input-group question_index_1 mt-2" >
+
+    <div class="col-md-9">
+      <div class="form-group mb-1">
+        <textarea class="form-control form-control-user font-13 resize-none WelcomeMessage" id="WelcomeMessage" placeholder="Enter your question" rows="2" autocomplete="off"
+                  [(ngModel)]="model.WelcomeMessage" #WelcomeMessage="ngModel" name="WelcomeMessage"></textarea>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="form-group">
+        <select class="form-control  font-13 AnswerLimit" id="AnswerLimit"
+                [(ngModel)]="model.AnswerLimit" #AnswerLimit="ngModel" aria-placeholder="Answer Limit" name="AnswerLimit" [ngClass]="{'is-invalid':AnswerLimit.invalid && (rDetails.submitted || AnswerLimit.touched)}">
+          <option [ngValue]="null" class="text-blue font-weight-bold">Answer Limit</option>
+          <option value='30 sec' class="text-blue font-weight-bold">30 sec</option>
+          <option value='20 sec' class="text-blue font-weight-bold">20 sec</option>
+          <option value='10 sec' class="text-blue font-weight-bold">10 sec</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-1">
+      <button type="button" class="btn btn-lg">
+        <i class="fas fa-trash" style="color: #e74a3b"></i>
+      </button>
+    </div>
+
+  </div>
+</div>
