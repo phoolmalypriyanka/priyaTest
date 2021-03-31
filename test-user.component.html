@@ -1,0 +1,41 @@
+<div class="container my-3">
+    <div class="card">
+        <div class="card-body">
+<h3>Test-User Component (Child-1)</h3>
+<div class="input-group">
+   
+    <div class="col-md-5 my-2">
+      
+        <div class="col-md-12 my-3">
+                <textarea  class="form-control" name="Message" #Message [(ngModel)]="data.Message"  placeholder="Enter message">
+                  </textarea>
+                  <div class="my-2">
+      
+   
+                    <button type="button" class="btn btn-primary float-left">Send</button>
+                </div>
+    </div>
+</div>
+<div class="col-md-7 align-center">
+   
+<table class="col-md-12 table table-dark">
+    <thead>
+<tr>
+<th class="">Name</th>
+<th class="">Mobile Number</th>
+<th class="">Address</th>
+<th class="">Action</th>
+</tr>
+</thead>
+    <tr *ngFor="let data of NewData">
+        <td>{{data.name}}</td>
+        <td>{{data.mobileNo}}</td>
+        <td>{{data.address}}</td>
+        <td><button type="button" class="btn btn-danger col-sm" >delete</button></td>
+    </tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
