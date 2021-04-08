@@ -1,0 +1,128 @@
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { NgForm, FormBuilder, FormGroup, FormControl, Validators, AbstractControl, NgModel } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AppComponent } from '../app.component';
+import { ChangePasswordService } from './Shared/changepassword.component.service';
+import { NotificationService } from '../toastr-notification/toastr-notification.service';
+import { GlobalVariable } from '../globals';
+
+@Component({
+  selector: 'app-change-password',
+  templateUrl: './change-password.component.html',
+  styleUrls: ['./change-password.component.css']
+})
+export class ChangePasswordComponent implements OnInit {
+
+  model: any = {};
+  form: FormGroup;
+  title: string;
+  errors: boolean = false;
+  userid: number;
+  TotalTime: any;
+  AnswerLimitVal: any;
+  
+  constructor(private titleService: Title, private router: Router, private appcmp: AppComponent, private changeservice: ChangePasswordService, public _notificationservice: NotificationService) {
+    //Added below code to update the title. Getting appcmp.title from app.component
+    this.title = "Change Password | " + appcmp.title;
+  }
+
+  ngOnInit() {
+    this.titleService.setTitle(this.title);
+
+   
+    this.TotalTime = "00:00:00";
+  }
+
+
+  //method to calculate time and covert to total seconds into hours,minutes,second format
+
+  toatalTimeCalculation() {
+    let TimeValue:number=0, Ans_Limit,Welcome_Msg;
+
+    Welcome_Msg = document.getElementsByClassName('WelcomeMessage');
+    
+    Ans_Limit = document.getElementsByClassName('AnswerLimit');
+
+    console.log(Ans_Limit)
+    if (Ans_Limit.length > 0) {
+      for (let i = 0; i < Ans_Limit.length; i++) {
+       
+        if (Ans_Limit[i]) TimeValue += Number(Ans_Limit[i].value.replace("sec", ""));
+        console.log(TimeValue);
+        if (TimeValue) {
+          //we are converting time
+          let totalSeconds = TimeValue;
+          let hours = Math.floor(totalSeconds / 3600).toString();
+          totalSeconds %= 3600;
+          let minutes = Math.floor(totalSeconds / 60).toString();
+          let seconds = (totalSeconds % 60).toString();
+
+          //this is to add zero at the starting of time
+          minutes = String(minutes).padStart(2, "0");
+          hours = String(hours).padStart(2, "0");
+          seconds = String(seconds).padStart(2, "0");
+          this.TotalTime =  hours + ' : ' + minutes + ' : ' + seconds;
+
+        } else {
+         
+
+        }
+
+
+      }
+  }
+
+  }
+
+  
+//methos to update time on Onchange
+
+  updateAnswerTime(event,answerLimit) {
+    let TimeValue: any = 0, target, AnswerLimitVal;
+
+    if (event && event.target) target = event.target;
+    //if (event) this.model.AnswerLimit = event.target.options[event.target.selectedIndex].value;
+    //this.AnswerLimitVal = this.model.AnswerLimit.replace("sec", "");
+   
+    this.toatalTimeCalculation();
+
+   
+  }
+
+  AddNewQuestions() {
+    var max_fields_limit = 10;
+    var min_limit = 0;
+
+    var html = '', a = '40 sec', b = '60 sec', c = '90 sec', d = '120 sec';
+
+    html += '<div class=" input-group question_index_1 mt-2">';
+
+    html += '<div class="col-md-9 "><div class="form-group"><textarea  class="form-control form-control-user font-13 resize-none WelcomeMessage" id="WelcomeMessage" placeholder="Enter your question" name = "WelcomeMessage" > </textarea></div></div>'
+
+    html += '<div class="col-md-2"><div class="form-group"><select name="AnswerLimit" id="AnswerLimit" class="font-13 form-control AnswerLimit  answerLimit text-blue"><option class="text-blue font-weight-bold" value="">Answer limit </option><option class="text-blue font-weight-bold" value =" ' + a + ' "> ' + a + ' </option><option class="text-blue font-weight-bold"  value="' + b + '">' + b + '</option><option class="text-blue font-weight-bold"  value="' + c + '">' + c + '</option><option class="text-blue font-weight-bold"  value="' + d + '">' + d + '</option></select></div></div>';
+
+
+    html += '<div class=" col-md-1"><button type="button" name="remove" class="remove btn btn-lg"><i class=" fas fa-trash" style="color: #e74a3b;border:none"></i></button></div></div>';
+
+
+    $('#item_table').append(html);
+    const addValue = this;
+    $(document).on('change', '.AnswerLimit', function () {
+      addValue.toatalTimeCalculation();
+    });
+
+
+    $("#item_table").on("click", ".remove", function () {
+      $(this).parent().parent().remove();
+      addValue.toatalTimeCalculation();
+    });
+
+    addValue.toatalTimeCalculation();
+  }
+
+
+
+
+  
+}

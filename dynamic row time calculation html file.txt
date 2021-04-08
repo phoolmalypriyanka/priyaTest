@@ -1,0 +1,56 @@
+<!--this button is for temporary used-->
+
+<div class="mt-4 ml-2">
+  <button type="button" name="add" class="btn btn-primary  add mt-3" (click)="AddNewQuestions()">Add</button>
+</div>
+
+
+
+
+
+<div id="item_table">
+  <div class="input-group question_index_1 mt-2">
+
+    <div class="col-md-9">
+      <div class="form-group mb-1">
+        <textarea class="form-control form-control-user font-13 resize-none WelcomeMessage" id="WelcomeMessage" placeholder="Enter your question" rows="2" autocomplete="off"
+                  [(ngModel)]="model.WelcomeMessage" #WelcomeMessage="ngModel" name="WelcomeMessage"></textarea>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="form-group">
+        <select class="form-control  font-13 AnswerLimit" id="AnswerLimit"
+                (change)="updateAnswerTime($event,AnswerLimit)" [(ngModel)]="model.AnswerLimit" #AnswerLimit="ngModel"
+                aria-placeholder="Answer Limit" name="AnswerLimit" [ngClass]="{'is-invalid':AnswerLimit.invalid && (rDetails.submitted || AnswerLimit.touched)}">
+          <option [ngValue]="null" class="text-blue font-weight-bold">Answer Limit</option>
+          <option value='40 sec' class="text-blue font-weight-bold">40 sec</option>
+          <option value='60 sec' class="text-blue font-weight-bold">60 sec</option>
+          <option value='90 sec' class="text-blue font-weight-bold">90 sec</option>
+          <option value='120 sec' class="text-blue font-weight-bold">120 sec</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-1">
+      <button type="button" class="btn btn-lg">
+        <i class="fas fa-trash" style="color: #e74a3b"></i>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!--this is for temporary used-->
+<div class="input-group my-3">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Total Time</label>
+
+      <span class="col-md-" style="color:blue;font-weight:bold"> {{TotalTime}}</span>
+
+
+    </div>
+
+  </div>
+</div>
