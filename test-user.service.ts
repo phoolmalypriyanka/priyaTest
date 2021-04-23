@@ -1,35 +1,59 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+declare var webkitSpeechRecognition: any;
 
 @Injectable({
   providedIn: 'root'
 })
 export class TestUserService {
- //public url= 'http://localhost:3000/users';
+  recognition =  new webkitSpeechRecognition();
+  isStoppedSpeechRecog = false;
+  public text = '';
+  tempWords:any;
 
+  constructor() { }
 
-  constructor(private http : HttpClient) { }
+ init(): void {
 
-  //UserName =new Subject<string>();
- // UserName = new BehaviorSubject<string>('priya');
+    this.recognition.interimResults = true;
+    this.recognition.lang = 'en-US';
 
+    this.recognition.addEventListener('result', (e:any) => {
+      let target, index;
 
- //(1)We are creating subject
-   AllUserData =new Subject<any>();
+    if (e && e.target) target = e.target;
+      const transcript = Array.from(e.results)
+        .map((result:any) => result[0])
+        .map((result:any) => result.transcript)
+        .join('');
+      this.tempWords = transcript;
+      console.log(this.tempWords);
+    });
+  }
 
-  postData(data)
-{
-  this.AllUserData.next(data);
-  return this.http.post('http://localhost:3000/users' ,data);
-  
-}
+  start() {
+    this.isStoppedSpeechRecog = false;
+    this.recognition.start();
+    console.log("Speech recognition started")
+    this.recognition.addEventListener('end', (condition:any) => {
+      if (this.isStoppedSpeechRecog) {
+        this.recognition.stop();
+        console.log("End speech recognition")
+      } else {
+        this.wordConcat()
+        this.recognition.start();
+      }
+    });
+  }
+  stop() {
+    this.isStoppedSpeechRecog = true;
+    this.wordConcat()
+    this.recognition.stop();
+    console.log("End speech recognition")
+  }
 
-getData(){
-  return this.http.get('http://localhost:3000/users');
-}
-removeData(obj){
-  return this.http.delete('http://localhost:3000/users/' + obj.id);
-}
-
+  wordConcat() {
+    this.text = this.text + ' ' + this.tempWords + '.';
+    this.tempWords = '';
+    console.log(this.text)
+  }
 }
